@@ -1,5 +1,5 @@
 module SomeFramework
-class Gear
+  class Gear
     attr_reader :chainring, :cog, :wheel
 
     def initialize(chainring, cog, wheel)
@@ -18,13 +18,6 @@ class Gear
   end
 end
 
-module GearWrapper
-  def self.gear(args)
-    SomeFramework::Gear.new(args[:chainring],
-                            args[:cog],
-                            args[:wheel])
-  end
-end
 
 class Wheel
   attr_reader :rim, :tire
@@ -39,7 +32,7 @@ class Wheel
   end
 end
 
-GearWrapper.gear(
-  chainring: 52,
-  cog: 11,
-  wheel: Wheel.new(26, 1.5)).gear_inches
+# 外部モジュールを使用する箇所が複数あると、引数の並び順を変えられると辛い
+SomeFramework::Gear.new(52,
+                        11,
+                        Wheel.new(26, 1.5)).gear_inches
