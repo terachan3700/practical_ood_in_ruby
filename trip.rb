@@ -7,31 +7,45 @@ class Trip
     @vehicle = vehicle
   end
 
-  # この'mechanic'引数はどんなクラスのものでも良い
   def prepare(preparers)
 
-    # 出口のないコード　危険な匂いがする
+    # 渡される対象のインスタンスにそれぞれprepare_tripを実装することで
+    # いちいちインスタンスをチェックしなくてよくなる
     preparers.each do |preparer|
-      case preparer
-      when Machanic
-        preparer.prepare_bicycles(bicycles)
-      when TripCoordinator
-        preparer.buy_food(customers)
-      when Drier
-        preparer.gas_up(vehicle)
-        preparer.fill_water_tank
-      end
+      preparer.prepare_trip(self)
     end
+  end
+end
+
+
+# このクラスのインスタンスを渡すことになっても動作する。
+class Mechanic
+  def prepare_trip(trip)
+    trip.bicycles.each { |bicycle| prepare_bicycle(bicycle) }
+  end
+
+  def prepare_bicycle(bicycle)
+    puts "hello" + bicycle
   end
 end
 
 # TripCoordinatorとDriverを追加した
 class TripCoordinator
-  def buy_food(customers)
+  def prepare_trip(trip)
+    buy_food(trip.customers)
+  end
+
+  def buy_food(customer)
   end
 end
 
 class Driver
+  def prepare_trip(trip)
+    vehicle = trip.vehicle
+    gas_up(vehicle)
+    fill_water_tank
+  end
+
   def gas_up(vehicle)
   end
 
@@ -42,16 +56,6 @@ class Driver
   end
 end
 
-# このクラスのインスタンスを渡すことになっても動作する。
-class Mechanic
-  def prepare_bicycles(bicycles)
-    bicycles.each { |bicycle| prepare_bicycle(bicycle) }
-  end
-
-  def prepare_bicycle(bicycle)
-    puts "hello" + bicycle
-  end
-end
 
 # bicycle = %w(a b c)
 # machin = Mechanic.new
