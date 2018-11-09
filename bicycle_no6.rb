@@ -1,4 +1,7 @@
 class Bicycle
+end
+
+class RoadBike < Bicycle
   attr_reader :style, :size, :tape_color,
               :front_shock, :rear_shock
 
@@ -40,10 +43,15 @@ class MounteinBike < Bicycle
   end
 end
 
+road_bike = RoadBike.new(
+                      size: 'M',
+                      tape_color: 'red')
+
+puts road_bike.size
+
 mountain_bike = MounteinBike.new(
   size: 'S',
   front_shock: 'Manitou',
   rear_shock: 'Fox')
 
 puts mountain_bike.size
-puts mountain_bike.spares
