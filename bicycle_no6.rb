@@ -1,16 +1,17 @@
 class Bicycle
+  attr_reader :size
+
+  def initialize(args = {})
+    @size = args[:size] #<- sizeから昇格した
+  end
 end
 
 class RoadBike < Bicycle
-  attr_reader :style, :size, :tape_color,
-              :front_shock, :rear_shock
+  attr_reader :tape_color
 
   def initialize(args)
-    @style = args[:style]
-    @size = args[:size]
     @tepe_color = args[:tape_color]
-    @front_shock = args[:front_shock]
-    @rear_shock = args[:rear_shock]
+    super(args)
   end
 
   # styleの確認は危険な道へ進む一歩
@@ -44,8 +45,8 @@ class MounteinBike < Bicycle
 end
 
 road_bike = RoadBike.new(
-                      size: 'M',
-                      tape_color: 'red')
+  size: 'M',
+  tape_color: 'red')
 
 puts road_bike.size
 
