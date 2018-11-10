@@ -3,6 +3,8 @@ class Bicycle
 
   def initialize(args = {})
     @size = args[:size] #<- sizeから昇格した
+    @chain = args[:chain]
+    @tire_size = args[:tire_size]
   end
 end
 
@@ -14,19 +16,11 @@ class RoadBike < Bicycle
     super(args)
   end
 
-  # styleの確認は危険な道へ進む一歩
   def spares
-    if style == :road
-      { chain: '10-speed',
-        tire_size: '23',
-        tape_color: tape_color
-      }
-    else
-      { chain: '10-speed',
-        tire_size: '2.1',
-        rear_shock: rear_shock
-      }
-    end
+    { chain: '10-speed',
+      tire_size: '23',
+      tape_color: tape_color
+    }
   end
 end
 
