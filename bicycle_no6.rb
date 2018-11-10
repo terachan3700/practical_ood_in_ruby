@@ -15,6 +15,11 @@ class Bicycle
     raise NotImplementedError,
           "This #{self.class} cannot responto:#{__method__}"
   end
+
+  def spares
+    { tire_size: tire_size,
+      chain: chain }
+  end
 end
 
 class RoadBike < Bicycle
