@@ -1,3 +1,5 @@
+require '../samplecode/chapter07_module'
+
 class Schedule
   def scheduled?(schedulable, start_date, end_date)
     puts "This #{schedulable.class}" +
@@ -8,20 +10,8 @@ class Schedule
 end
 
 class Bicycle
-  attr_reader :schedule, :size, :chain, :tire_size
 
-  # Scheduleを注入し、初期値を設定する。
-  def initialize(args = {})
-    @schedule = args[:schedule] || Schedule.new
-  end
-
-  def schedulable?(start_date, end_date)
-    !scheduled?(start_date - lead_days, end_date)
-  end
-
-  def scheduled?(start_date, end_date)
-    schedule.scheduled?(self, start_date, end_date)
-  end
+  include Schedulable
 
   def lead_days
     1
